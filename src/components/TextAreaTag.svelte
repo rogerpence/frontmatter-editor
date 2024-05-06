@@ -1,10 +1,27 @@
 <script>
-    import {normalize} from "$scripts/utilities.js"
+    // @ts-nocheck 
+    import {normalize, set_frontmatter} from "$scripts/utilities.js"
 
     export let label
     export let value 
     export let caption 
+    export let show_info
+    
+    const id = normalize(label) 
+    const counter_id = id + '_counter';
 
+    let char_count = 0 
+    let current_value = ''
+
+    function show_chars(e) {        
+        char_count = e.currentTarget.value.length        
+        current_value = e.currentTarget.value
+
+        const element = document.querySelector(`#${id}`)
+        element.setAttribute('data_value', current_value) 
+
+        set_frontmatter()                
+    }
 
 
 </script>
@@ -15,10 +32,15 @@
            for={normalize(label)}>{label}</label>
 
     <textarea data-is-field 
+        on:keyup={show_chars}
+        on:blur={show_chars}
         required
         rows="6" 
-        name={normalize(label)} 
-        id={normalize(label)} 
+        data_value={current_value}
+        name={id} 
+        id={id} 
         placeholder="{caption}">{value}</textarea>
-    <!-- <p class="counter"><span id="description-char-count">Character count 0</span></p> -->
+        {#if show_info}
+            <p class="counter"><span id={counter_id}>Character count {char_count}</span></p>    
+        {/if}
 </div>

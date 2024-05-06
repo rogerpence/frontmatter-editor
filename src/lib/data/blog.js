@@ -3,7 +3,7 @@ export const blog_def = [
 		type: 'text',
 		multiline: false,
 		label_text: 'Layout',
-		value: '',
+		value: '$layouts/SingleBlogPost.astro',
 		caption: '',
 		show_info: false
 	},
