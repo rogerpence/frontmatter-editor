@@ -1,5 +1,7 @@
 // @ts-nocheck
 
+import { browser } from '$app/environment';
+
 //import { frontmatter_def } from '$data/blog.js';
 import { frontmatter } from '$scripts/state.js';
 import { frontmatter_data } from '$data/blog.js';
@@ -20,9 +22,9 @@ export function formatDate(date) {
 	return new Date(date).toLocaleDateString('en-CA');
 }
 
-const copy_to_clipboard = (str) => {
+export const copy_to_clipboard = async (str) => {
 	if (navigator && navigator.clipboard && navigator.clipboard.writeText)
-		return navigator.clipboard.writeText(str);
+		return await navigator.clipboard.writeText(str);
 	return Promise.reject('The Clipboard API is not available.');
 };
 
@@ -65,7 +67,7 @@ date_published: $date_published
 pinned: $pinned
 ---`;
 
-export function set_frontmatter() {
+export async function set_frontmatter() {
 	//let template = post_template;
 	let template = get_frontmatter_template();
 
@@ -82,7 +84,9 @@ export function set_frontmatter() {
 		frontmatter.set(template);
 	});
 
-	copy_to_clipboard(template);
+	try {
+		if (browser) await copy_to_clipboard(template);
+	} catch {}
 
 	return template;
 }

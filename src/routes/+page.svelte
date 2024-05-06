@@ -1,8 +1,10 @@
 <script>
     // @ts-nocheck 
+    import { onMount } from 'svelte';
+    import { browser } from '$app/environment';
 
     import { frontmatter, frontmatter_name } from '$scripts/state.js';
-    //import {get_blog_data} from '$scripts/utilities.js'
+    import {copy_to_clipboard} from '$scripts/utilities.js'
 	import { frontmatter_data } from "$data/blog.js";
 
     let frontmatter_def_name
@@ -22,17 +24,18 @@
 	import SelectMultiLineTag from "$components/SelectMultiLineTag.svelte";
     import DateTag from "$components/DateTag.svelte"
 	import BooleanTag from "$components/BooleanTag.svelte";
-	import RefreshFrontmatter from "$components/RefreshFrontmatter.svelte";
 
     //frontmatter.set(get_frontmatter_template());
 
+
     let template
-	frontmatter.subscribe((value) => {
-	 	template = value;
-	});
+
+    onMount( () => {
+        frontmatter.subscribe((value) => {
+            template = value;
+        });       
+    })
 </script>
-
-
 
 <div class="form-wrapper">
     <h1>Frontmatter: Blog Post</h1>
@@ -61,10 +64,12 @@
         {/if}      
         {/each}     
 
-        <!-- <RefreshFrontmatter/> -->
+
     </form>
 
     <div>
         <pre>{template}</pre>
     </div>
 </div>
+
+
