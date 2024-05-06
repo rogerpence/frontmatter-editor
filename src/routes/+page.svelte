@@ -1,22 +1,13 @@
 <script>
     // @ts-nocheck 
     import { onMount } from 'svelte';
-    import { browser } from '$app/environment';
 
     import { frontmatter, frontmatter_name } from '$scripts/state.js';
-    import {copy_to_clipboard} from '$scripts/utilities.js'
-	import { frontmatter_data } from "$data/blog.js";
+    import {get_blog_data} from '$scripts/utilities.js'
 
-    let frontmatter_def_name
-	frontmatter_name.subscribe((value) => {
-         frontmatter_def_name = value;
-	});
+    let frontmatter_def_name = $frontmatter_name
 
-
-    //let frontmatter_def_name = 'rp-blog'
-
-    let blog_def = frontmatter_data.filter((fm) => fm.name == frontmatter_def_name)[0].frontmatter_def;
-    //let blog_def = get_blog_data()
+    let blog_def = get_blog_data(frontmatter_def_name)
 
        
     import TextTag from "$components/TextTag.svelte"
@@ -24,8 +15,6 @@
 	import SelectMultiLineTag from "$components/SelectMultiLineTag.svelte";
     import DateTag from "$components/DateTag.svelte"
 	import BooleanTag from "$components/BooleanTag.svelte";
-
-    //frontmatter.set(get_frontmatter_template());
 
 
     let template

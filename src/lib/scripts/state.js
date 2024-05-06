@@ -14,5 +14,7 @@ const post_template = get_frontmatter_template();
 // pinned: $pinned
 // ---`;
 
+const data_name = 'rp-blog';
+
 export const frontmatter = writable(post_template);
-export const frontmatter_name = writable('rp-blog');
+export const frontmatter_name = writable(data_name);

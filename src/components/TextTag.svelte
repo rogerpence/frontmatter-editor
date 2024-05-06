@@ -1,8 +1,16 @@
 <script lang="ts">
     // @ts-nocheck 
+    import { frontmatter, frontmatter_name } from '$scripts/state.js';
+
     
     import {normalize, set_data_value_attr, set_frontmatter} from "$scripts/utilities.js"
     import { onMount } from 'svelte';
+
+    let frontmatter_def_name
+	frontmatter_name.subscribe((value) => {
+         frontmatter_def_name = value;
+	});
+
 
     export let label
     export let show_info = false
@@ -14,7 +22,6 @@
 
     let char_count = 0 
     let current_value = value
-
     
     function show_chars(e) {        
         char_count = e.currentTarget.value.length
