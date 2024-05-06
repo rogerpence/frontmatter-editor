@@ -7,18 +7,13 @@ import { frontmatter } from '$scripts/state.js';
 import { frontmatter_data } from '$data/blog.js';
 
 export function get_blog_data(frontmatter_def_name) {
-	const blog_def = frontmatter_data.filter((fm) => fm.name == frontmatter_def_name)[0]
-		.frontmatter_def;
+	let blog_def = frontmatter_data.filter((fm) => fm.name == frontmatter_def_name);
+
+	console.log(blog_def);
+	blog_def = blog_def[0].frontmatter_def;
+
 	return blog_def;
 }
-
-// export function get_blog_def() {
-// 	const frontmatter_def_name = 'rp-blog';
-// 	let blog_def = frontmatter_data.filter((fm) => fm.name == frontmatter_def_name)[0]
-// 		.frontmatter_def;
-
-// 	return blog_def;
-// }
 
 export function formatDate(date) {
 	return new Date(date).toLocaleDateString('en-CA');
@@ -39,11 +34,11 @@ export function set_data_value_attr(id, value) {
 	element.setAttribute('data_value', value);
 }
 
-export function get_frontmatter_template() {
+export function get_frontmatter_template(frontmatter_def_name) {
 	const fields = [];
 	fields.push(`---`);
 
-	const blog_def = get_blog_data('rp-blog');
+	const blog_def = get_blog_data(frontmatter_def_name);
 
 	blog_def.map((def) => {
 		const field_name = normalize(def.label_text);
@@ -69,11 +64,11 @@ date_published: $date_published
 pinned: $pinned
 ---`;
 
-export async function set_frontmatter() {
+export async function set_frontmatter(frontmatter_def_name) {
 	//let template = post_template;
-	let template = get_frontmatter_template();
+	let template = get_frontmatter_template(frontmatter_def_name);
 
-	const blog_def = get_blog_data('rp-blog');
+	const blog_def = get_blog_data(frontmatter_def_name);
 
 	blog_def.map((def) => {
 		const id = `${normalize(def.label_text)}`;

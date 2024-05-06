@@ -1,5 +1,6 @@
 <script>
     // @ts-nocheck 
+    import { frontmatter, frontmatter_name } from '$scripts/state.js';
     import {normalize, set_frontmatter} from "$scripts/utilities.js"
 
     export let label
@@ -9,6 +10,8 @@
     
     const id = normalize(label) 
     const counter_id = id + '_counter';
+
+    let frontmatter_def_name = $frontmatter_name
 
     let char_count = 0 
     let current_value = ''
@@ -20,9 +23,8 @@
         const element = document.querySelector(`#${id}`)
         element.setAttribute('data_value', current_value) 
 
-        set_frontmatter()                
+        set_frontmatter(frontmatter_def_name)                
     }
-
 
 </script>
 

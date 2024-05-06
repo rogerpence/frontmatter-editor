@@ -1,5 +1,7 @@
 <script>
     // @ts-nocheck 
+
+    import { frontmatter, frontmatter_name } from '$scripts/state.js';
     import {normalize} from "$scripts/utilities.js"
     export let label
     export let value 
@@ -12,6 +14,8 @@
     const id = normalize(label)
     const show_values_id = `${id}_list`
     const NO_TAGS_SELECTED = 'No tags selected'
+
+    let frontmatter_def_name = $frontmatter_name
 
     let tags_selected_list = NO_TAGS_SELECTED
 
@@ -36,7 +40,7 @@
         const element = document.querySelector(`#${id}`)
         element.setAttribute('data_value', frontmatter_tags_list) 
         
-        set_frontmatter()            
+        set_frontmatter(frontmatter_def_name)            
     }
 
 </script>                

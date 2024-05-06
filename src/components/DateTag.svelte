@@ -1,10 +1,12 @@
 <script>
     // @ts-nocheck 
-
+    import { frontmatter, frontmatter_name } from '$scripts/state.js';
     import {formatDate, normalize, set_frontmatter} from "$scripts/utilities.js"
 
     export let label
     export let value 
+
+    let frontmatter_def_name = $frontmatter_name
     
     let current_value = ''
         
@@ -19,7 +21,7 @@
         current_value = e.currentTarget.value     
         const element = document.querySelector(`#${id}`)
         element.setAttribute('data_value', current_value) 
-        set_frontmatter()            
+        set_frontmatter(frontmatter_def_name)            
     }
 
 </script>

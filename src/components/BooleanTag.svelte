@@ -1,10 +1,13 @@
 <script>
     // @ts-nocheck 
+    import { frontmatter, frontmatter_name } from '$scripts/state.js';
 
     import {normalize, set_frontmatter} from "$scripts/utilities.js"
 
     export let label
     export let value 
+    
+    let frontmatter_def_name = $frontmatter_name
 
     const id = normalize(label) 
 
@@ -15,7 +18,7 @@
         current_value = e.currentTarget.checked.toString()
         const element = document.querySelector(`#${id}`)
         element.setAttribute('data_value', current_value) 
-        set_frontmatter()            
+        set_frontmatter(frontmatter_def_name)            
     }
 </script>
 

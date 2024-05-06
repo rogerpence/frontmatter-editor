@@ -6,11 +6,7 @@
     import {normalize, set_data_value_attr, set_frontmatter} from "$scripts/utilities.js"
     import { onMount } from 'svelte';
 
-    let frontmatter_def_name
-	frontmatter_name.subscribe((value) => {
-         frontmatter_def_name = value;
-	});
-
+    let frontmatter_def_name = $frontmatter_name
 
     export let label
     export let show_info = false
@@ -28,7 +24,7 @@
         current_value = e.currentTarget.value
         
         set_data_value_attr(id, current_value) 
-        set_frontmatter()            
+        set_frontmatter(frontmatter_def_name)            
     }
     
     onMount(() => {
