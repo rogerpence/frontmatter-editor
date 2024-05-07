@@ -14,8 +14,7 @@
     import {set_frontmatter} from "$scripts/utilities.js"
 
     const tags = tags_list?.[doc_name]['tags']
-    console.log('tags',tags)
-
+    
     const id = normalize(label)
     const show_values_id = `${id}_list`
     const NO_TAGS_SELECTED = 'No tags selected'

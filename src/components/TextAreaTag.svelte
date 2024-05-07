@@ -23,6 +23,7 @@
         const element = document.querySelector(`#${id}`)
         element.setAttribute('data_value', current_value) 
 
+        //set_data_value_attr(id, current_value) 
         set_frontmatter(frontmatter_def_name)                
     }
 </script>
