@@ -5,13 +5,13 @@
     import { page } from '$app/stores'
     const doc_name = $page.url.searchParams.get('docname')
 
-    frontmatter_name.set(doc_name)
-
+    
     import { frontmatter, frontmatter_name } from '$scripts/state.js';
     import {get_blog_data, set_frontmatter} from '$scripts/utilities.js'
-
+    
     let frontmatter_def_name = $frontmatter_name
-
+    
+    frontmatter_name.set(doc_name)
 
     let blog_def = get_blog_data(frontmatter_def_name)
        
@@ -20,16 +20,23 @@
 	import SelectMultiLineTag from "$components/SelectMultiLineTag.svelte";
     import DateTag from "$components/DateTag.svelte"
 	import BooleanTag from "$components/BooleanTag.svelte";
-
+    
+    
     let template
 
-    onMount( () => {
-        frontmatter.subscribe((value) => {
-            template = value;
-        });       
 
+    function refresh_frontmatter() {
         set_frontmatter(frontmatter_def_name)
-    })
+        template = $frontmatter
+    }
+
+    // onMount( () => {
+    //     frontmatter.subscribe((value) => {
+    //         template = value;
+    //     });       
+
+    //     set_frontmatter(frontmatter_def_name)
+    // })
 </script>
 
 <div class="form-wrapper">
@@ -64,7 +71,12 @@
     </div>
 
     <div class="frontmatter-preview">
+        <div>
+            <button on:click={refresh_frontmatter()} id="refresh-frontmatter-button">Refresh frontmatter</button>
+        </div>
         {#if template}
+
+
         <!-- <code class="frontmatter-wrapper"> -->
             <pre>{template}</pre>
         <!-- </code> -->

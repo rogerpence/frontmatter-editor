@@ -11,6 +11,17 @@
     color: #222;
   }
 
+  #refresh-frontmatter-button {
+    padding-inline: .5rem;
+    padding-block: 1rem;
+    background-color: green;
+    color: white;
+    outline: none;
+    border-radius: 10px;
+    text-decoration: none;
+    border: medium none;
+  }
+
   div.form-wrapper {
 
     max-width: 1200px;
