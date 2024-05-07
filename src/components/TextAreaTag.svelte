@@ -25,7 +25,6 @@
 
         set_frontmatter(frontmatter_def_name)                
     }
-
 </script>
 
 <div class="form-field">

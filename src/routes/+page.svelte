@@ -41,7 +41,7 @@
         {/if}
 
         {#if post.type == "list" && post.multiline}    
-        <SelectMultiLineTag label={post.label_text} value caption={post.caption} show_info={post.show_info}/>
+        <SelectMultiLineTag label={post.label_text} value caption={post.caption} show_info={post.show_info} doc_name={frontmatter_def_name}/>
         {/if}
         
         {#if post.type == "date" }    

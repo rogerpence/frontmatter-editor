@@ -3,13 +3,18 @@
 
     import { frontmatter, frontmatter_name } from '$scripts/state.js';
     import {normalize} from "$scripts/utilities.js"
-    export let label
+
+    export let label    
     export let value 
+    export let doc_name
     export let caption 
     export let show_info
 
     import {tags_list} from "$data/tag_object";
     import {set_frontmatter} from "$scripts/utilities.js"
+
+    const tags = tags_list?.[doc_name]['tags']
+    console.log('tags',tags)
 
     const id = normalize(label)
     const show_values_id = `${id}_list`
@@ -52,7 +57,7 @@
         id={normalize(label)} 
         data_value
         multiple size="5">        
-        {#each tags_list as tag}
+        {#each tags as tag}
         <option on:mouseup={show_values}       
                 on:blur={show_values}  
                 class="list_option_element" 

@@ -1,7 +1,8 @@
-export const frontmatter_data = [
-	{
-		name: 'rp-blog',
-		frontmatter_def: [
+// @ts-nocheck
+
+export const frontmatter_data = {
+	'rp-blog': {
+		frontmatter: [
 			{
 				type: 'text',
 				multiline: false,
@@ -68,9 +69,8 @@ export const frontmatter_data = [
 			}
 		]
 	},
-	{
-		name: 'asna',
-		frontmatter_def: [
+	asna: {
+		frontmatter: [
 			{
 				type: 'text',
 				multiline: false,
@@ -177,4 +177,4 @@ export const frontmatter_data = [
 			}
 		]
 	}
-];
+};
