@@ -1,31 +1,38 @@
 <script>
     // @ts-nocheck 
-    import { frontmatter, frontmatter_name } from '$scripts/state.js';
-    import {normalize, set_frontmatter} from "$scripts/utilities.js"
+
+    import {onMount} from 'svelte'
+
+    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
 
     export let label
-    export let value 
+    export let value = ""
     export let caption 
     export let show_info
     
     const id = normalize(label) 
     const counter_id = id + '_counter';
 
-    let frontmatter_def_name = $frontmatter_name
-
     let char_count = 0 
     let current_value = ''
 
-    function show_chars(e) {        
+    async function show_chars(e) {        
         char_count = e.currentTarget.value.length        
-        current_value = e.currentTarget.value
-
-        const element = document.querySelector(`#${id}`)
-        element.setAttribute('data_value', current_value) 
-
-        //set_data_value_attr(id, current_value) 
-        set_frontmatter(frontmatter_def_name)                
+        set_data_value_attr(id, e.currentTarget.value)
+        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
+        await copy_to_clipboard($fm_current);
     }
+
+    onMount(() => {
+        // This ensures default values are present.
+        set_data_value_attr(id, value) 
+    })
+
+    // on:keyup={show_chars}
+    //     on:blur={show_chars}
+
+
 </script>
 
 <div class="form-field">
@@ -35,7 +42,6 @@
 
     <textarea data-is-field 
         on:keyup={show_chars}
-        on:blur={show_chars}
         required
         rows="6" 
         data_value={current_value}

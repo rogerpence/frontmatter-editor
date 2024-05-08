@@ -1,24 +1,23 @@
 <script>
     // @ts-nocheck 
-    import { frontmatter, frontmatter_name } from '$scripts/state.js';
+    import {onMount} from 'svelte'
 
-    import {normalize, set_frontmatter} from "$scripts/utilities.js"
+    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
 
     export let label
     export let value 
     
-    let frontmatter_def_name = $frontmatter_name
-
     const id = normalize(label) 
 
     const checked = value ? "checked" : ""
     let current_value = value.toString()
 
-    function change_event(e) {
+    async function change_event(e) {
         current_value = e.currentTarget.checked.toString()
-        const element = document.querySelector(`#${id}`)
-        element.setAttribute('data_value', current_value) 
-        set_frontmatter(frontmatter_def_name)            
+        set_data_value_attr(id, current_value)
+        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
+        await copy_to_clipboard($fm_current);
     }
 </script>
 

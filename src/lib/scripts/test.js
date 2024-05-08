@@ -1,4 +1,4 @@
-import { frontmatter_def } from '../data/blog.js';
+import { frontmatter_def } from '../data/frontmatter-json.js';
 //import { normalize } from './utilities.js';
 
 export function normalize(name) {

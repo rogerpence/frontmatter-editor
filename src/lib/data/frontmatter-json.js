@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-export const frontmatter_data = {
+export const frontmatter_json = {
 	'rp-blog': {
 		frontmatter: [
 			{

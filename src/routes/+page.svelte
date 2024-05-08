@@ -1,86 +1,80 @@
 <script>
     // @ts-nocheck 
     import { onMount } from 'svelte';
-
     import { page } from '$app/stores'
-    const doc_name = $page.url.searchParams.get('docname')
+    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import {assign_defaults_to_fm, get_frontmatter_json, get_frontmatter_template} from "$scripts/utilities"
 
-    
-    import { frontmatter, frontmatter_name } from '$scripts/state.js';
-    import {get_blog_data, set_frontmatter} from '$scripts/utilities.js'
-    
-    let frontmatter_def_name = $frontmatter_name
-    
-    frontmatter_name.set(doc_name)
-
-    let blog_def = get_blog_data(frontmatter_def_name)
-       
     import TextTag from "$components/TextTag.svelte"
-    import TextAreaTag from "$components/TextAreaTag.svelte"
-	import SelectMultiLineTag from "$components/SelectMultiLineTag.svelte";
-    import DateTag from "$components/DateTag.svelte"
-	import BooleanTag from "$components/BooleanTag.svelte";
-    
-    
-    let template
+    import TextAreaTag  from "$components/TextAreaTag.svelte"
+    import SelectMultiLineTag from '$components/SelectMultiLineTag.svelte';
+    import DateTag from '$components/DateTag.svelte';
+    import BooleanTag from '$components/BooleanTag.svelte';
 
+    const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
 
-    function refresh_frontmatter() {
-        set_frontmatter(frontmatter_def_name)
-        template = $frontmatter
-    }
+    $fm_name = doc_name
 
-    // onMount( () => {
-    //     frontmatter.subscribe((value) => {
-    //         template = value;
-    //     });       
-
-    //     set_frontmatter(frontmatter_def_name)
-    // })
+    $fm_json = get_frontmatter_json(doc_name)
+    $fm_base = get_frontmatter_template($fm_json)
+    $fm_current = assign_defaults_to_fm($fm_base, $fm_json) 
 </script>
 
 <div class="form-wrapper">
 
     <div>
-        <h1>Frontmatter: Blog Post</h1>
+        <h1>Frontmatter:  {doc_name}</h1>
         <div><a data-sveltekit-reload href="/?docname=rp-blog">rp blog</a>        <a data-sveltekit-reload href="/?docname=asna">ASNA</a></div>
-        <form  id="form">
-        {#each blog_def as post}
-            {#if post.type == "text" && ! post.multiline}
-                <TextTag label={post.label_text} value={post.value} show_info={post.show_info} />
+        <form id="form">
+        {#each $fm_json as field}
+            <!-- {JSON.stringify(field, null, 4)} -->
+            {#if field.type == "text" && !field.multiline}
+                <TextTag label={field.label_text} value={field.value} show_info={field.show_info} />
             {/if}
 
-            {#if post.type == "text" && post.multiline}
-            <TextAreaTag label={post.label_text} value={post.value} caption={post.caption} show_info={post.show_info}/>
+            {#if field.type == "text" && field.multiline}
+            <TextAreaTag label={field.label_text} value={field.value} caption={field.caption} show_info={field.show_info}/>
+            {/if}            
+
+            {#if field.type == "list" && field.multiline}
+            <SelectMultiLineTag label={field.label_text} value caption={field.caption} show_info={field.show_info} doc_name={fm_name}/>
             {/if}
 
-            {#if post.type == "list" && post.multiline}
-            <SelectMultiLineTag label={post.label_text} value caption={post.caption} show_info={post.show_info} doc_name={frontmatter_def_name}/>
-            {/if}
-        
-            {#if post.type == "date" }
-            <DateTag label={post.label_text} value={post.value}/>
-            {/if}
-        
-            {#if post.type == "boolean" }
-            <BooleanTag  label={post.label_text} value={post.value}/>
+            {#if field.type == "date" }
+            <DateTag label={field.label_text} value={field.value}/>
             {/if}
 
-            {/each}
+            {#if field.type == "boolean" }
+            <BooleanTag  label={field.label_text} value={field.value}/>
+            {/if}
+
+            
+
+        {/each}
+
         </form>
     </div>
 
     <div class="frontmatter-preview">
+        <code>
+            <pre>{$fm_current.trimEnd()}
+            </pre>
+        </code>
         <div>
-            <button on:click={refresh_frontmatter()} id="refresh-frontmatter-button">Refresh frontmatter</button>
+            <code>
+                <pre>
+                    {$fm_base}
+                </pre>
+            </code>    
         </div>
-        {#if template}
 
-
-        <!-- <code class="frontmatter-wrapper"> -->
-            <pre>{template}</pre>
-        <!-- </code> -->
-        {/if}
+        <div>
+            <code>
+                <pre>
+                    {JSON.stringify($fm_json, null, 4)}
+                </pre>
+            </code>    
+        </div>
     </div>
 </div>
 

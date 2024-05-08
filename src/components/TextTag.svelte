@@ -1,36 +1,33 @@
-<script lang="ts">
-    // @ts-nocheck 
-    import { frontmatter, frontmatter_name } from '$scripts/state.js';
+<script>
 
-    
-    import {normalize, set_data_value_attr, set_frontmatter} from "$scripts/utilities.js"
-    import { onMount } from 'svelte';
+    // @ts-nocheck    
+    import {onMount} from 'svelte'
 
-    let frontmatter_def_name = $frontmatter_name
+    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
 
     export let label
     export let show_info = false
     export let value = ""
 
-    const id = normalize(label) 
-
+    const id = normalize(label)
 	const counter_id = id + '_counter';
 
     let char_count = 0 
-    let current_value = value
-    
-    function show_chars(e) {        
+
+    async function show_chars(e) {        
         char_count = e.currentTarget.value.length
-        current_value = e.currentTarget.value
-        
-        set_data_value_attr(id, current_value) 
-        set_frontmatter(frontmatter_def_name)            
+        set_data_value_attr(id, e.currentTarget.value)
+        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
+        await copy_to_clipboard($fm_current);
     }
     
     onMount(() => {
-        set_data_value_attr(id, current_value) 
-        set_frontmatter()
+        // This ensures default values are present.
+        set_data_value_attr(id, value) 
     })
+    // on:blur={show_chars} -->
+
 
 </script>
 
@@ -38,7 +35,7 @@
     <label for={normalize(label)}>{label}</label>
     <input data-is-field required 
     on:keyup={show_chars}    
-    on:blur={show_chars}
+
     {value}
     type="text" 
     name={normalize(label)} 

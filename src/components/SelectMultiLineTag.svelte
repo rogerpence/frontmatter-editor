@@ -1,8 +1,11 @@
 <script>
     // @ts-nocheck 
 
-    import { frontmatter, frontmatter_name } from '$scripts/state.js';
-    import {normalize} from "$scripts/utilities.js"
+    import {onMount} from 'svelte'
+
+    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import {tags_list} from "$data/tag_object";
 
     export let label    
     export let value 
@@ -10,16 +13,11 @@
     export let caption 
     export let show_info
 
-    import {tags_list} from "$data/tag_object";
-    import {set_frontmatter} from "$scripts/utilities.js"
-
-    const tags = tags_list?.[doc_name]['tags']
+    const tags = tags_list?.[$fm_name]['tags']
     
     const id = normalize(label)
     const show_values_id = `${id}_list`
     const NO_TAGS_SELECTED = 'No tags selected'
-
-    let frontmatter_def_name = $frontmatter_name
 
     let tags_selected_list = NO_TAGS_SELECTED
 
@@ -28,7 +26,7 @@
         return `[${tag_elements.join(', ')}]`
     }
     
-    function show_values() 
+    async function show_values(e) 
     {
         let frontmatter_tags_list
         const selectedTags = document.querySelectorAll(`#${id} option:checked`);
@@ -41,10 +39,10 @@
             tags_selected_list = tags_selected 
             frontmatter_tags_list = get_frontmatter_tag_list(tags_selected)
         }            
-        const element = document.querySelector(`#${id}`)
-        element.setAttribute('data_value', frontmatter_tags_list) 
-        
-        set_frontmatter(frontmatter_def_name)            
+
+        set_data_value_attr(id, frontmatter_tags_list)
+        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
+        await copy_to_clipboard($fm_current);
     }
 
 </script>                
