@@ -21,7 +21,7 @@
         char_count = e.currentTarget.value.length        
         set_data_value_attr(id, e.currentTarget.value)
         $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
-        await copy_to_clipboard($fm_current);
+        //await copy_to_clipboard($fm_current);
     }
 
     onMount(() => {

@@ -8,9 +8,9 @@
     import {tags_list} from "$data/tag_object";
 
     export let label    
-    export let value 
-    export let doc_name
-    export let caption 
+    // export let value 
+    // export let doc_name
+    // export let caption 
     export let show_info
 
     const tags = tags_list?.[$fm_name]['tags']
@@ -42,7 +42,7 @@
 
         set_data_value_attr(id, frontmatter_tags_list)
         $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
-        await copy_to_clipboard($fm_current);
+        //await copy_to_clipboard($fm_current);
     }
 
 </script>                

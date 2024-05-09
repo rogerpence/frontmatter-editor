@@ -17,7 +17,7 @@
         current_value = e.currentTarget.checked.toString()
         set_data_value_attr(id, current_value)
         $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
-        await copy_to_clipboard($fm_current);
+        //await copy_to_clipboard($fm_current);
     }
 </script>
 

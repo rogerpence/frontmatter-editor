@@ -176,5 +176,33 @@ export const frontmatter_json = {
 				show_info: false
 			}
 		]
+	},
+	test: {
+		frontmatter: [
+			{
+				type: 'text',
+				multiline: false,
+				label_text: 'Title',
+				value: '',
+				caption: '50-60 characters',
+				show_info: true
+			},
+			{
+				type: 'text',
+				multiline: true,
+				label_text: 'Description',
+				value: '',
+				caption: '150-200 characters',
+				show_info: true
+			},
+			{
+				type: 'singleselect',
+				multiline: false,
+				label_text: 'Group',
+				value: 'crosby|stills|nash',
+				caption: '',
+				show_info: false
+			}
+		]
 	}
 };

@@ -11,6 +11,14 @@ export function normalize(name) {
 	return name.toLowerCase().replace(' ', '_');
 }
 
+export const copy_to_clipboard_sync = (str) => {
+	if (!browser) return;
+
+	if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+		return navigator.clipboard.writeText(str);
+	return Promise.reject('The Clipboard API is not available.');
+};
+
 export const copy_to_clipboard = async (str) => {
 	if (!browser) return;
 
@@ -34,7 +42,6 @@ export function get_frontmatter_template(fm_json) {
 	});
 
 	fields.push(`---`);
-	console.log(fields.join('\n').trimEnd());
 
 	return fields.join('\n').trimEnd();
 }
@@ -45,10 +52,12 @@ export function assign_defaults_to_fm(fm, fm_json) {
 
 		if (field.type == 'boolean') {
 			fm = fm.replace(fm_key, field.value.toString());
+		} else if (field.type == 'singleselect') {
+			const first_value = field.value.split('|')[0].trim();
+			fm = fm.replace(fm_key, first_value);
 		} else if (field.value == '*Today') {
 			fm = fm.replace(fm_key, format_date(new Date()));
 		} else if (field.value != '') {
-			console.log(field.value);
 			fm = fm.replace(fm_key, field.value);
 		} else {
 			fm = fm.replace(fm_key, '');
@@ -60,7 +69,6 @@ export function assign_defaults_to_fm(fm, fm_json) {
 
 export function set_data_value_attr(id, value) {
 	const element = document.querySelector(`#${id}`);
-	//console.log(element);
 	element.setAttribute('data_value', value);
 }
 

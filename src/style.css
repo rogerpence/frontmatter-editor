@@ -30,6 +30,15 @@
     column-gap: 2rem;
     margin: 0 auto;
 
+    & button {
+        background-color: green;
+        color: white;
+        border: none;
+        padding-inline: .5rem;
+        padding-block: .5rem;
+        border-radius: 5%;
+    }
+
     & .frontmatter-preview {
         margin-block-start: 3rem;
 
