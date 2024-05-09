@@ -41,7 +41,16 @@
         padding-inline: .5rem;
         padding-block: .5rem;
         border-radius: 5%;
+        cursor: pointer;
     }
+
+    & button:hover {background-color: #3e8e41}
+
+    & button:active {
+      background-color: #3e8e41;
+      /* box-shadow: 0 5px #666; */
+      transform: translateY(2px);
+    }    
 
     & .frontmatter-preview {
         margin-block-start: 3rem;
