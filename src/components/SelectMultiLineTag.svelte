@@ -10,7 +10,6 @@
     export let label    
     // export let value 
     // export let doc_name
-    // export let caption 
     export let show_info
 
     const tags = tags_list?.[$fm_name]['tags']

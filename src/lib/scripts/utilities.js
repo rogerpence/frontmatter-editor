@@ -8,7 +8,7 @@ export function format_date(date) {
 }
 
 export function normalize(name) {
-	return name.toLowerCase().replace(' ', '_');
+	if (name) return name.toLowerCase().replace(' ', '_');
 }
 
 export const copy_to_clipboard_sync = (str) => {
@@ -37,8 +37,10 @@ export function get_frontmatter_template(fm_json) {
 	fields.push(`---`);
 
 	fm_json?.map((def) => {
-		const field_name = normalize(def.label_text);
-		fields.push(`${field_name}: \$${field_name}`);
+		if (def.type != 'separator') {
+			const field_name = normalize(def.label_text);
+			fields.push(`${field_name}: \$${field_name}`);
+		}
 	});
 
 	fields.push(`---`);
@@ -52,6 +54,7 @@ export function assign_defaults_to_fm(fm, fm_json) {
 
 		if (field.type == 'boolean') {
 			fm = fm.replace(fm_key, field.value.toString());
+		} else if (field.type == 'separator') {
 		} else if (field.type == 'singleselect') {
 			const first_value = field.value.split('|')[0].trim();
 			fm = fm.replace(fm_key, first_value);

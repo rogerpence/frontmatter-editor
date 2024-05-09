@@ -30,8 +30,12 @@
         <div><a data-sveltekit-reload href="/?docname=rp-blog">rp blog</a>        <a data-sveltekit-reload href="/?docname=asna">ASNA</a></div>
         <form id="form">
         {#each $fm_json as field}
+            {#if field.type == "separator"}
+            <hr>
+            {/if}            
+
             {#if field.type == "text" && !field.multiline}
-                <TextTag label={field.label_text} value={field.value} show_info={field.show_info} />
+                <TextTag label={field.label_text} value={field.value} show_info={field.show_info} caption={field.caption}/>
             {/if}
 
             {#if field.type == "text" && field.multiline}
@@ -43,9 +47,9 @@
             {/if}
 
             {#if field.type == "singleselect" }
-            <pre>
+            <!-- <pre>
                 {JSON.stringify(field, null, 4)}
-            </pre>
+            </pre> -->
             <SelectSingleTag label={field.label_text} value={field.value}/>
             {/if}
 

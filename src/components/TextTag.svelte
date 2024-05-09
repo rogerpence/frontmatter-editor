@@ -8,6 +8,7 @@
 
     export let label
     export let show_info = false
+    export let caption = ""
     export let value = ""
 
     const id = normalize(label)
@@ -41,8 +42,8 @@
     name={normalize(label)} 
     id={normalize(label)} 
     data_value
-    placeholder=""/>
+    placeholder={caption}/>
     {#if show_info}
-    <p class="counter"><span id={counter_id}>Character count {char_count}</span></p>    
+    <p class="counter"><span id={counter_id}>Character count {char_count} of {caption}</span></p>    
     {/if}
 </div>

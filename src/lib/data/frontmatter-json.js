@@ -81,27 +81,11 @@ export const frontmatter_json = {
 			},
 			{
 				type: 'text',
-				multiline: false,
-				label_text: 'Series',
-				value: '',
-				caption: '',
-				show_info: false
-			},
-			{
-				type: 'text',
 				multiline: true,
 				label_text: 'Description',
 				value: '',
 				caption: '150-200 characters',
 				show_info: true
-			},
-			{
-				type: 'text',
-				multiline: false,
-				label_text: 'Abstract',
-				value: '',
-				caption: '',
-				show_info: false
 			},
 			{
 				type: 'boolean',
@@ -144,22 +128,6 @@ export const frontmatter_json = {
 				show_info: false
 			},
 			{
-				type: 'text',
-				multiline: false,
-				label_text: 'Url',
-				value: '',
-				caption: '',
-				show_info: false
-			},
-			{
-				type: 'text',
-				multiline: false,
-				label_text: 'Image',
-				value: '',
-				caption: '',
-				show_info: false
-			},
-			{
 				type: 'boolean',
 				multiline: false,
 				label_text: 'Draft',
@@ -172,6 +140,38 @@ export const frontmatter_json = {
 				multiline: false,
 				label_text: 'Type',
 				value: 'default',
+				caption: '',
+				show_info: false
+			},
+			{
+				type: 'text',
+				multiline: false,
+				label_text: 'Series',
+				value: '',
+				caption: '',
+				show_info: false
+			},
+			{
+				type: 'text',
+				multiline: false,
+				label_text: 'Abstract',
+				value: '',
+				caption: '',
+				show_info: false
+			},
+			{
+				type: 'text',
+				multiline: false,
+				label_text: 'Url',
+				value: '',
+				caption: '',
+				show_info: false
+			},
+			{
+				type: 'text',
+				multiline: false,
+				label_text: 'Image',
+				value: '',
 				caption: '',
 				show_info: false
 			}

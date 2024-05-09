@@ -49,6 +49,6 @@
         id={id} 
         placeholder="{caption}">{value}</textarea>
         {#if show_info}
-            <p class="counter"><span id={counter_id}>Character count {char_count}</span></p>    
+            <p class="counter"><span id={counter_id}>Character count {char_count} of {caption}</span></p>    
         {/if}
 </div>

@@ -11,6 +11,10 @@
     color: #222;
   }
 
+  hr {
+    margin-block: 2rem;
+  }
+
   #refresh-frontmatter-button {
     padding-inline: .5rem;
     padding-block: 1rem;
