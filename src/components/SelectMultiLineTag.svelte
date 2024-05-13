@@ -1,19 +1,13 @@
 <script>
     // @ts-nocheck 
 
-    import {onMount} from 'svelte'
-
     import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
-    import {tags_list} from "$data/tag_object";
+    import { fm_base, fm_current, fm_json } from '$scripts/state.js';
 
     export let label    
-    // export let value 
-    // export let doc_name
+    export let tags
     export let show_info
 
-    const tags = tags_list?.[$fm_name]['tags']
-    
     const id = normalize(label)
     const show_values_id = `${id}_list`
     const NO_TAGS_SELECTED = 'No tags selected'
@@ -41,7 +35,6 @@
 
         set_data_value_attr(id, frontmatter_tags_list)
         $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
-        //await copy_to_clipboard($fm_current);
     }
 
 </script>                

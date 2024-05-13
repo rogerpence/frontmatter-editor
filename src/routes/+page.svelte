@@ -17,10 +17,13 @@
 
     $fm_name = doc_name
 
+    // Tags list for the doc_name is fetched from the load function in +page.js. 
+    export let data
+    const {tags} = data
+
     $fm_json = get_frontmatter_json(doc_name)
     $fm_base = get_frontmatter_template($fm_json)
     $fm_current = assign_defaults_to_fm($fm_base, $fm_json) 
-
 </script>
 
 <div class="form-wrapper">
@@ -43,7 +46,7 @@
             {/if}            
 
             {#if field.type == "list" && field.multiline}
-            <SelectMultiLineTag label={field.label_text} show_info={field.show_info} />
+            <SelectMultiLineTag label={field.label_text} show_info={field.show_info} {tags}/>
             {/if}
 
             {#if field.type == "singleselect" }
