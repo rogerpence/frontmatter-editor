@@ -80,7 +80,13 @@ export function refresh_frontmatter(id, fm_base, fm_json) {
 	fm_json?.map((field) => {
 		const id = `${normalize(field.label_text)}`;
 		const element = document.querySelector(`#${id}`);
-		const value = element.getAttribute('data_value');
+
+		let value;
+		if (field.type == 'text') {
+			value = `"${element.getAttribute('data_value')}"`;
+		} else {
+			value = element.getAttribute('data_value');
+		}
 		const replace_token = `\$${id}`;
 		template = template.replace(replace_token, value);
 	});
