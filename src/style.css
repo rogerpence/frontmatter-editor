@@ -131,9 +131,9 @@
     /* font-size: 1.1rem; */
   }
 
-
   input[type='checkbox'] {
     width: 2rem;
+    accent-color: green;
   }
 
   input {
