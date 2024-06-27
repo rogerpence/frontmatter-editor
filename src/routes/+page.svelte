@@ -12,6 +12,7 @@
     import DateTag from '$components/DateTag.svelte';
     import BooleanTag from '$components/BooleanTag.svelte';
 	import SelectSingleTag from '$components/SelectSingleTag.svelte';
+    import DateTime from '$components/DateTime.svelte';
 
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
 
@@ -21,9 +22,29 @@
     export let data
     const {tags} = data
 
+    /*
+     * Frontmatter schema is fetched from the frontmatter.json file in the root of the project.
+     */
     $fm_json = get_frontmatter_json(doc_name)
+    for (const f of $fm_json) {
+        if (f.value == '*Today') {
+            f.value = new Date().toISOString().slice(0, 16)
+        }        
+    }
+    console.log('$fm_json', $fm_json)
+
+    /*
+     * Frontmatter template is fetched from the frontmatter-template.md file in the root of the project.
+     */
     $fm_base = get_frontmatter_template($fm_json)
+    //console.log('$fm_base', $fm_base)
+
+    /*
+     * Assign default values to the frontmatter fields. $fm_current is the current frontmatter 
+     * and is updated as the user types in the form.
+     */
     $fm_current = assign_defaults_to_fm($fm_base, $fm_json) 
+    //console.log('$fm_current', $fm_current)
 </script>
 
 <div class="form-wrapper">
@@ -57,8 +78,14 @@
             {/if}
 
             {#if field.type == "date" }
+            <div>{field.value}</div>
             <DateTag label={field.label_text} value={field.value}/>
             {/if}
+
+            <!-- {#if field.type == "date" }
+            <DateTime label={field.label_text} value={field.value}/>
+            {/if} -->
+
 
             {#if field.type == "boolean" }
             <BooleanTag  label={field.label_text} value={field.value}/>

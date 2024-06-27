@@ -58,8 +58,13 @@ export function assign_defaults_to_fm(fm, fm_json) {
 		} else if (field.type == 'singleselect') {
 			const first_value = field.value.split('|')[0].trim();
 			fm = fm.replace(fm_key, first_value);
-		} else if (field.value == '*Today') {
-			fm = fm.replace(fm_key, format_date(new Date()));
+		} else if (field.type == 'date' && field.value == '*Today') {
+			//const now = new Date();
+			// replace *Today placeholder with date time in frontmatter json schema.
+			//field.value = now.toISOString().slice(0, 16);
+			console.log('field.value', field.value);
+			//fm = fm.replace(fm_key, now.toISOString().slice(0, 16));
+			fm = fm.replace(fm_key, field.value);
 		} else if (field.value != '') {
 			fm = fm.replace(fm_key, field.value);
 		} else {
@@ -67,6 +72,7 @@ export function assign_defaults_to_fm(fm, fm_json) {
 		}
 	});
 
+	//console.log('fm', fm);
 	return fm;
 }
 
