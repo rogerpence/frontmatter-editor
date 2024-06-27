@@ -3,42 +3,46 @@
 
     import {onMount} from 'svelte'
 
-    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import {normalize, replace_token_value, get_initial_frontmatter, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
     import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
     import {tags_list} from "$data/tag_object";
 
     export let label    
     export let value 
-    // export let caption 
-    
+        
+    // value is a string with the format: tag1|tag2|tag3
+    // add error checking if the value is not in the correct format.
     const tags = value.split('|')
+    replace_token_value($fm_json, label, tags[0])
+    $fm_current = get_initial_frontmatter($fm_json)           
 
     const id = normalize(label)
     const show_values_id = `${id}_list`
    
-    async function show_values(e) 
+    function show_values(e) 
     {
+        console.log('show_values')
         const selected = document.querySelector(`#${id}`);
         let selected_value = selected.options[selected.selectedIndex].text
         set_data_value_attr(id, selected_value)
-        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
-    }
 
+        replace_token_value($fm_json, label, selected_value)
+        $fm_current = get_initial_frontmatter($fm_json)                
+    }
 </script>                
 
 <div class="form-field">
-<label for={normalize(label)}>Tags</label>
+<label for={normalize(label)}>{label}</label>
     <select data-is-field
         name={normalize(label)} 
         id={normalize(label)} 
         data_value
+        on:change={show_values}       
         size="1">        
-        {#each tags as tag}
-        <option on:mouseup={show_values}       
-                on:blur={show_values}  
-                class="list_option_element" 
-                value={tag.trim()}>{tag.trim()}                
-        </option>
+        {#each tags as tag, index}
+            <option class="list_option_element" 
+                    value={tag.trim()}>{tag.trim()}                
+            </option>
         {/each}
     </select>
 </div>    

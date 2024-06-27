@@ -1,7 +1,7 @@
 <script>
     // @ts-nocheck 
 
-    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import {normalize, replace_token_value, get_initial_frontmatter, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
     import { fm_base, fm_current, fm_json } from '$scripts/state.js';
 
     export let label    
@@ -33,14 +33,14 @@
             frontmatter_tags_list = get_frontmatter_tag_list(tags_selected)
         }            
 
-        set_data_value_attr(id, frontmatter_tags_list)
-        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
+        replace_token_value($fm_json, label, frontmatter_tags_list)
+        $fm_current = get_initial_frontmatter($fm_json)
     }
 
 </script>                
 
 <div class="form-field">
-<label for={normalize(label)}>Tags</label>
+<label for={normalize(label)}>{label}</label>
     <select data-is-field
         name={normalize(label)} 
         id={normalize(label)} 

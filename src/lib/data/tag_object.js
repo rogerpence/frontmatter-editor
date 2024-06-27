@@ -15,6 +15,9 @@ export const tags_list = {
 			{ name: 'xsql-server', count: 1 }
 		]
 	},
+	asnadocs: {
+		tags: []
+	},
 	asna: {
 		url: 'https://www.asna.com/api/tags',
 		tags: [

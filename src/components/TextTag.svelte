@@ -3,7 +3,7 @@
     // @ts-nocheck    
     import {onMount} from 'svelte'
 
-    import {normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import {normalize, refresh_frontmatter, get_initial_frontmatter, set_data_value_attr, copy_to_clipboard, replace_token_value} from "$scripts/utilities.js"
     import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
 
     export let label
@@ -16,19 +16,17 @@
 
     let char_count = 0 
 
-    async function show_chars(e) {        
+    function show_chars(e) {        
         char_count = e.currentTarget.value.length
         set_data_value_attr(id, e.currentTarget.value)
-        $fm_current = refresh_frontmatter(id, $fm_base, $fm_json) 
-        //await copy_to_clipboard($fm_current);
+        replace_token_value($fm_json, label, e.currentTarget.value)
+        $fm_current = get_initial_frontmatter($fm_json)
     }
     
     onMount(() => {
         // This ensures default values are present.
         set_data_value_attr(id, value) 
     })
-    // on:blur={show_chars} -->
-
 
 </script>
 
@@ -36,7 +34,6 @@
     <label for={normalize(label)}>{label}</label>
     <input data-is-field required 
     on:keyup={show_chars}    
-
     {value}
     type="text" 
     name={normalize(label)} 

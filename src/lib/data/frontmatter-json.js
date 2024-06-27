@@ -177,6 +177,34 @@ export const frontmatter_json = {
 			}
 		]
 	},
+	asnadocs: {
+		frontmatter: [
+			{
+				type: 'text',
+				multiline: false,
+				label_text: 'Title',
+				value: '',
+				caption: '50-60 characters',
+				show_info: true
+			},
+			{
+				type: 'text',
+				multiline: true,
+				label_text: 'Description',
+				value: '',
+				caption: '150-200 characters',
+				show_info: true
+			},
+			{
+				type: 'date',
+				multiline: false,
+				label_text: 'Last Modified',
+				value: '',
+				caption: '',
+				show_info: false
+			}
+		]
+	},
 	test: {
 		frontmatter: [
 			{

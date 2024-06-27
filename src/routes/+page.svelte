@@ -4,7 +4,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
     import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
-    import {assign_defaults_to_fm, get_frontmatter_json, get_frontmatter_template, copy_to_clipboard, copy_to_clipboard_sync} from "$scripts/utilities"
+    import {assign_defaults_to_fm, get_frontmatter_json, get_initial_frontmatter, copy_to_clipboard, copy_to_clipboard_sync} from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
     import TextAreaTag  from "$components/TextAreaTag.svelte"
@@ -12,7 +12,7 @@
     import DateTag from '$components/DateTag.svelte';
     import BooleanTag from '$components/BooleanTag.svelte';
 	import SelectSingleTag from '$components/SelectSingleTag.svelte';
-    import DateTime from '$components/DateTime.svelte';
+    // import DateTime from '$components/DateTime.svelte';
 
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
 
@@ -27,23 +27,28 @@
      */
     $fm_json = get_frontmatter_json(doc_name)
     for (const f of $fm_json) {
-        if (f.value == '*Today') {
+        if (f.type == 'text') {
+            //f.value = `${f.value}`
+        }
+        else if  (f.value == '*Today') {
             f.value = new Date().toISOString().slice(0, 16)
         }        
+
     }
     console.log('$fm_json', $fm_json)
 
     /*
      * Frontmatter template is fetched from the frontmatter-template.md file in the root of the project.
      */
-    $fm_base = get_frontmatter_template($fm_json)
+    $fm_base = get_initial_frontmatter($fm_json)
     //console.log('$fm_base', $fm_base)
 
     /*
      * Assign default values to the frontmatter fields. $fm_current is the current frontmatter 
      * and is updated as the user types in the form.
      */
-    $fm_current = assign_defaults_to_fm($fm_base, $fm_json) 
+    //$fm_current = assign_defaults_to_fm($fm_base, $fm_json) 
+    $fm_current = $fm_base
     //console.log('$fm_current', $fm_current)
 </script>
 
@@ -51,7 +56,11 @@
 
     <div>
         <h1>Frontmatter:  {doc_name}</h1>
-        <div><a data-sveltekit-reload href="/?docname=rp-blog">rp blog</a>        <a data-sveltekit-reload href="/?docname=asna">ASNA</a></div>
+        <div>
+            <a data-sveltekit-reload href="/?docname=rp-blog">rp blog</a> 
+            <a data-sveltekit-reload href="/?docname=asna">ASNA</a> 
+            <a data-sveltekit-reload href="/?docname=asnadocs">ASNA Docs</a> 
+        </div>
         <form id="form">
         {#each $fm_json as field}
             {#if field.type == "separator"}
@@ -78,14 +87,8 @@
             {/if}
 
             {#if field.type == "date" }
-            <div>{field.value}</div>
             <DateTag label={field.label_text} value={field.value}/>
             {/if}
-
-            <!-- {#if field.type == "date" }
-            <DateTime label={field.label_text} value={field.value}/>
-            {/if} -->
-
 
             {#if field.type == "boolean" }
             <BooleanTag  label={field.label_text} value={field.value}/>
@@ -103,21 +106,6 @@
             <pre>{$fm_current.trimEnd()}
             </pre>
         </code>
-        <!-- <div>
-            <code>
-                <pre>
-                    {$fm_base}
-                </pre>
-            </code>    
-        </div>
-
-        <div>
-            <code>
-                <pre>
-                    {JSON.stringify($fm_json, null, 4)}
-                </pre>
-            </code>    
-        </div> -->
     </div>
 </div>
 
