@@ -27,7 +27,7 @@ export function convert_to_field_name(name) {
 /**
  *
  * @param {string} str
- * @returns {void}
+ * @returns {MouseEventHandler<HTMLButtonElement>}
  */
 export const copy_to_clipboard = async (str) => {
 	if (!browser) return;
