@@ -28,10 +28,7 @@
 
     resolve_schema_tokens($frontmatter_as_json_object)
    
-    /**
-     * Assign initial frontmatter values to frontmatter result.
-     * @type {string}
-     */
+    /** @type {WritableStringStore}  */
     $frontmatter_as_string = get_frontmatter_as_string($frontmatter_as_json_object)
 </script>
 
@@ -59,7 +56,7 @@
             {/if}            
 
             {#if field.type == "list" && field.multiline}
-            <SelectMultiLineTag label={field.label_text} show_info={field.show_info} {tags}/>
+            <SelectMultiLineTag label={field.label_text} show_info={field.show_info} tags={tags}/>
             {/if}
 
             {#if field.type == "singleselect" }

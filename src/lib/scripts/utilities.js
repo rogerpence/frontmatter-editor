@@ -50,7 +50,8 @@ export function get_frontmatter_as_json(frontmatter_key) {
 }
 
 /**
- *
+ * Convert the frontmatter json object to a frontmatter string.
+ * The frontmatter string is a string representation of the frontmatter object.
  *
  * @param {any[]} fm_json
  * @returns {string} Frontmatter string
