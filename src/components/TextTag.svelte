@@ -30,6 +30,25 @@
 
 </script>
 
+<!--
+    @component
+    ## TextTag component
+
+    This component resolves to an input tag with type="text".
+
+    ### Properties
+        * label {string} - The label for the input field. Required.
+        * show_info {boolean} - Show the character count. Default is false.
+        * caption {string} - The placeholder text for the input field. Default is "".
+        * value = {string} - The value of the input field. Default is "".
+
+    ### Example
+
+    ```
+    <TextTag label="Title" show_info={true} caption="Enter the title" value="This is the title"/>    
+    ```
+-->
+
 <div class="form-field">
     <label for={convert_to_field_name(label)}>{label}</label>
     <input data-is-field required 
