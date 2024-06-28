@@ -4,7 +4,7 @@
     import {onMount} from 'svelte'
 
     import {convert_to_field_name, replace_token_value, get_frontmatter_as_string,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
+    import { fm_name, fm_current, frontmatter_as_json_object } from '$scripts/state.js';
     import {tags_list} from "$data/tag_object";
 
     export let label    
@@ -13,8 +13,8 @@
     // value is a string with the format: tag1|tag2|tag3
     // add error checking if the value is not in the correct format.
     const tags = value.split('|')
-    replace_token_value($fm_json, label, tags[0])
-    $fm_current = get_frontmatter_as_string($fm_json)           
+    replace_token_value($frontmatter_as_json_object, label, tags[0])
+    $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)           
 
     const id = convert_to_field_name(label)
     const show_values_id = `${id}_list`
@@ -25,8 +25,8 @@
         let selected_value = selected.options[selected.selectedIndex].text
         set_data_value_attr(id, selected_value)
 
-        replace_token_value($fm_json, label, selected_value)
-        $fm_current = get_frontmatter_as_string($fm_json)                
+        replace_token_value($frontmatter_as_json_object, label, selected_value)
+        $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)                
     }
 </script>                
 

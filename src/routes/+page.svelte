@@ -3,7 +3,7 @@
     import { browser } from '$app/environment';
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
-    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
+    import { fm_name, fm_current, frontmatter_as_json_object } from '$scripts/state.js';
     import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard } from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
@@ -25,8 +25,8 @@
     /*
      * Frontmatter schema is fetched from the frontmatter.json file in the root of the project.
      */
-    $fm_json = get_frontmatter_as_json(doc_name)
-    for (const f of $fm_json) {
+    $frontmatter_as_json_object = get_frontmatter_as_json(doc_name)
+    for (const f of $frontmatter_as_json_object) {
         if (f.type == 'text') {
             //f.value = `${f.value}`
         }
@@ -39,7 +39,7 @@
      * Assign initial frontmatter values to frontmatter result.
      * @type {string}
      */
-    $fm_current = get_frontmatter_as_string($fm_json)
+    $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)
 </script>
 
 <div class="form-wrapper">
@@ -52,7 +52,7 @@
             <a data-sveltekit-reload href="/?docname=asnadocs">ASNA Docs</a> 
         </div>
         <form id="form">
-        {#each $fm_json as field}
+        {#each $frontmatter_as_json_object as field}
             {#if field.type == "separator"}
             <hr>
             {/if}            

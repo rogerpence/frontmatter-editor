@@ -3,9 +3,9 @@ import { writable } from 'svelte/store';
 
 // const post_template = get_frontmatter_template(data_name);
 
-export const frontmatter = writable('');
+//export const frontmatter = writable('');
 export const fm_name = writable('');
-export const fm_json = writable('');
+export const frontmatter_as_json_object = writable('');
 
 /**
  * @type {string} - The current frontmatter as a string.

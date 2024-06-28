@@ -3,7 +3,7 @@
     import {onMount} from 'svelte'
 
     import {replace_token_value, get_frontmatter_as_string, convert_to_field_name, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
+    import { fm_name, fm_current, frontmatter_as_json_object } from '$scripts/state.js';
 
     export let label
     export let value
@@ -15,8 +15,8 @@
     async function keyup_event(e) {
         current_value = e.currentTarget.value  
         set_data_value_attr(id, e.currentTarget.value)
-        replace_token_value($fm_json, label, e.currentTarget.value)
-        $fm_current = get_frontmatter_as_string($fm_json)
+        replace_token_value($frontmatter_as_json_object, label, e.currentTarget.value)
+        $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)
     }
 
 </script>

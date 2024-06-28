@@ -40,6 +40,7 @@ export const copy_to_clipboard = async (str) => {
 /**
  * Get the specified frontmatter object from frontmatter-json.js.
  * Return the frontmatter object is available in the app with the fm_json store
+ *
  * @param {string} frontmatter_key - The key of the frontmatter definition in frontmatter-json.js.
  * @returns {any} Frontmatter Json object
  */

@@ -2,7 +2,7 @@
     // @ts-nocheck 
 
     import {convert_to_field_name, replace_token_value, get_frontmatter_as_string,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_current, fm_json } from '$scripts/state.js';
+    import { fm_current, frontmatter_as_json_object } from '$scripts/state.js';
 
     export let label    
     export let tags
@@ -33,8 +33,8 @@
             frontmatter_tags_list = get_frontmatter_tag_list(tags_selected)
         }            
 
-        replace_token_value($fm_json, label, frontmatter_tags_list)
-        $fm_current = get_frontmatter_as_string($fm_json)
+        replace_token_value($frontmatter_as_json_object, label, frontmatter_tags_list)
+        $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)
     }
 
 </script>                

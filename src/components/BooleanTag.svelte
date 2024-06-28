@@ -3,7 +3,7 @@
     import {onMount} from 'svelte'
 
     import {convert_to_field_name, replace_token_value, get_frontmatter_as_string, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
+    import { fm_name, fm_current, frontmatter_as_json_object } from '$scripts/state.js';
 
     export let label
     export let value 
@@ -18,8 +18,8 @@
         current_value = e.currentTarget.checked.toString()
         current_value = current_value === "true" ? "true" : "false"
         set_data_value_attr(id, current_value)
-        replace_token_value($fm_json, label, current_value)
-        $fm_current = get_frontmatter_as_string($fm_json)
+        replace_token_value($frontmatter_as_json_object, label, current_value)
+        $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)
     }
 </script>
 
