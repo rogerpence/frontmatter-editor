@@ -3,7 +3,7 @@
     import { browser } from '$app/environment';
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
-    import { fm_current, frontmatter_as_json_object } from '$scripts/state.js';
+    import { frontmatter_as_string, frontmatter_as_json_object } from '$scripts/state.js';
     import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard } from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
@@ -37,7 +37,7 @@
      * Assign initial frontmatter values to frontmatter result.
      * @type {string}
      */
-    $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)
+    $frontmatter_as_string = get_frontmatter_as_string($frontmatter_as_json_object)
 </script>
 
 <div class="form-wrapper">
@@ -89,9 +89,9 @@
     </div>
 
     <div class="frontmatter-preview">
-        <div><button on:click={copy_to_clipboard($fm_current)}>Copy to clipboard</button></div>
+        <div><button on:click={copy_to_clipboard($frontmatter_as_string)}>Copy to clipboard</button></div>
         <code>
-            <pre>{$fm_current.trimEnd()}
+            <pre>{$frontmatter_as_string.trimEnd()}
             </pre>
         </code>
     </div>

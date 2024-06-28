@@ -4,7 +4,7 @@
     import {onMount} from 'svelte'
 
     import {convert_to_field_name,  get_frontmatter_as_string, set_data_value_attr, copy_to_clipboard, replace_token_value} from "$scripts/utilities.js"
-    import { fm_current, frontmatter_as_json_object } from '$scripts/state.js';
+    import { frontmatter_as_string, frontmatter_as_json_object } from '$scripts/state.js';
 
     export let label
     export let value = ""
@@ -21,7 +21,7 @@
         char_count = e.currentTarget.value.length        
         set_data_value_attr(id, e.currentTarget.value)
         replace_token_value($frontmatter_as_json_object, label, e.currentTarget.value)
-        $fm_current = get_frontmatter_as_string($frontmatter_as_json_object)
+        $frontmatter_as_string = get_frontmatter_as_string($frontmatter_as_json_object)
     }
 
     onMount(() => {

@@ -8,4 +8,4 @@ export const frontmatter_as_json_object = writable({});
 /**
  * @type {WritableStringStore} - The current frontmatter as a string.
  */
-export const fm_current = writable('');
+export const frontmatter_as_string = writable('');
