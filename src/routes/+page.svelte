@@ -21,9 +21,7 @@
     export let data
     const {tags} = data
 
-    /*
-     * Frontmatter schema is fetched from the object defined in frontmatter-json.js. 
-     */
+    /** @type {WritableObjectStore} */
     $frontmatter_as_json_object = get_frontmatter_as_json(doc_name)
 
     resolve_schema_tokens($frontmatter_as_json_object)
