@@ -1,8 +1,8 @@
 <script>
     // @ts-nocheck 
 
-    import {normalize, replace_token_value, get_initial_frontmatter, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import {normalize, replace_token_value, get_initial_frontmatter,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_current, fm_json } from '$scripts/state.js';
 
     export let label    
     export let tags

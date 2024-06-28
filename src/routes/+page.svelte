@@ -3,7 +3,7 @@
     import { browser } from '$app/environment';
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
-    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
     import {assign_defaults_to_fm, get_frontmatter_json, get_initial_frontmatter, copy_to_clipboard, copy_to_clipboard_sync} from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
@@ -14,8 +14,8 @@
 	import SelectSingleTag from '$components/SelectSingleTag.svelte';
     // import DateTime from '$components/DateTime.svelte';
 
+    /** @type {string}  */
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
-
     $fm_name = doc_name
 
     // Tags list for the doc_name is fetched from the load function in +page.js. 
@@ -33,23 +33,13 @@
         else if  (f.value == '*Today') {
             f.value = new Date().toISOString().slice(0, 16)
         }        
-
     }
-    console.log('$fm_json', $fm_json)
-
-    /*
-     * Frontmatter template is fetched from the frontmatter-template.md file in the root of the project.
+    
+    /**
+     * Assign initial frontmatter values to frontmatter result.
+     * @type {string}
      */
-    $fm_base = get_initial_frontmatter($fm_json)
-    //console.log('$fm_base', $fm_base)
-
-    /*
-     * Assign default values to the frontmatter fields. $fm_current is the current frontmatter 
-     * and is updated as the user types in the form.
-     */
-    //$fm_current = assign_defaults_to_fm($fm_base, $fm_json) 
-    $fm_current = $fm_base
-    //console.log('$fm_current', $fm_current)
+    $fm_current = get_initial_frontmatter($fm_json)
 </script>
 
 <div class="form-wrapper">

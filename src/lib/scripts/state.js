@@ -6,5 +6,8 @@ import { writable } from 'svelte/store';
 export const frontmatter = writable('');
 export const fm_name = writable('');
 export const fm_json = writable('');
-export const fm_base = writable('');
+
+/**
+ * @type {string} - The current frontmat as a string.
+ */
 export const fm_current = writable('');

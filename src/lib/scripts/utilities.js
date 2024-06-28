@@ -27,11 +27,22 @@ export const copy_to_clipboard = async (str) => {
 	return Promise.reject('The Clipboard API is not available.');
 };
 
+/**
+ *
+ *
+ * @param {string} frontmatter_def_name - The key of the frontmatter definition in frontmatter-json.js.
+ * @returns {any} Frontmatter Json object
+ */
 export function get_frontmatter_json(frontmatter_def_name) {
 	const fm_json = frontmatter_json[frontmatter_def_name]?.frontmatter;
 	return fm_json;
 }
 
+/**
+ *
+ * @param {Any[]} fm_json
+ * @returns {string} Frontmatter string
+ */
 export function get_initial_frontmatter(fm_json) {
 	const fields = [];
 	fields.push(`---`);
@@ -60,13 +71,13 @@ export function assign_defaults_to_fm(fm, fm_json) {
 		if (field.type == 'boolean') {
 			fm = fm.replace(fm_key, field.value.toString());
 		} else if (field.type == 'text') {
-			console.log(field.value); ////fm = fm.replace(`"${(fm_key, field.value)}"`);
+			//
 		} else if (field.type == 'separator') {
 		} else if (field.type == 'singleselect') {
 			const first_value = field.value.split('|')[0].trim();
 			fm = fm.replace(fm_key, first_value);
 		} else if (field.type == 'date' && field.value == '*Today') {
-			console.log('field.value', field.value);
+			//
 			//fm = fm.replace(fm_key, now.toISOString().slice(0, 16));
 			fm = fm.replace(fm_key, field.value);
 		} else if (field.value != '') {
@@ -76,36 +87,12 @@ export function assign_defaults_to_fm(fm, fm_json) {
 		}
 	});
 
-	//console.log('fm', fm);
 	return fm;
 }
 
 export function set_data_value_attr(id, value) {
 	const element = document.querySelector(`#${id}`);
 	element.setAttribute('data_value', value);
-}
-
-export function refresh_frontmatter(id, fm_base, fm_json) {
-	console.log('called refresh_frontmatter');
-	// console.log('fm_base', fm_base);
-	console.log('fm_json', fm_json);
-
-	let template = fm_base;
-	fm_json?.map((field) => {
-		const id = `${normalize(field.label_text)}`;
-		const element = document.querySelector(`#${id}`);
-
-		let value;
-		if (field.type == 'text') {
-			value = `"${element.getAttribute('data_value')}"`;
-		} else {
-			value = element.getAttribute('data_value');
-		}
-		const replace_token = `\$${id}`;
-		template = template.replace(replace_token, value);
-	});
-
-	return template;
 }
 
 export function replace_token_value(json, key, value) {

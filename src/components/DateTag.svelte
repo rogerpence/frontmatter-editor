@@ -2,8 +2,8 @@
     // @ts-nocheck 
     import {onMount} from 'svelte'
 
-    import {format_date, replace_token_value, get_initial_frontmatter, normalize, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import {format_date, replace_token_value, get_initial_frontmatter, normalize, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
 
     export let label
     export let value
@@ -14,12 +14,7 @@
         
     async function keyup_event(e) {
         current_value = e.currentTarget.value  
-        console.log('keyup in DateTag component', current_value) 
-
-        console.log(current_value)        
-
         set_data_value_attr(id, e.currentTarget.value)
-
         replace_token_value($fm_json, label, e.currentTarget.value)
         $fm_current = get_initial_frontmatter($fm_json)
     }

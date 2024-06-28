@@ -3,8 +3,8 @@
 
     import {onMount} from 'svelte'
 
-    import {normalize, replace_token_value, get_initial_frontmatter, refresh_frontmatter, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import {normalize, replace_token_value, get_initial_frontmatter,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
     import {tags_list} from "$data/tag_object";
 
     export let label    
@@ -21,7 +21,6 @@
    
     function show_values(e) 
     {
-        console.log('show_values')
         const selected = document.querySelector(`#${id}`);
         let selected_value = selected.options[selected.selectedIndex].text
         set_data_value_attr(id, selected_value)

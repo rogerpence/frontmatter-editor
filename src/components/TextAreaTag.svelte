@@ -3,8 +3,8 @@
 
     import {onMount} from 'svelte'
 
-    import {normalize, refresh_frontmatter, get_initial_frontmatter, set_data_value_attr, copy_to_clipboard, replace_token_value} from "$scripts/utilities.js"
-    import { fm_name, fm_base, fm_current, fm_json } from '$scripts/state.js';
+    import {normalize,  get_initial_frontmatter, set_data_value_attr, copy_to_clipboard, replace_token_value} from "$scripts/utilities.js"
+    import { fm_name, fm_current, fm_json } from '$scripts/state.js';
 
     export let label
     export let value = ""
