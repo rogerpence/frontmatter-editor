@@ -1,17 +1,14 @@
 <script>
-    // @ts-nocheck 
-    import { browser } from '$app/environment';
-    import { onMount } from 'svelte';
     import { page } from '$app/stores'
     import { frontmatter_as_string, frontmatter_as_json_object } from '$scripts/state.js';
     import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard, resolve_schema_tokens } from "$scripts/utilities"
 
-    import TextTag from "$components/TextTag.svelte"
-    import TextAreaTag  from "$components/TextAreaTag.svelte"
-    import SelectMultiLineTag from '$components/SelectMultiLineTag.svelte';
-    import DateTag from '$components/DateTag.svelte';
     import BooleanTag from '$components/BooleanTag.svelte';
+    import DateTag from '$components/DateTag.svelte';
+    import SelectMultiLineTag from '$components/SelectMultiLineTag.svelte';
 	import SelectSingleTag from '$components/SelectSingleTag.svelte';
+    import TextAreaTag  from "$components/TextAreaTag.svelte"
+    import TextTag from "$components/TextTag.svelte"
 
     /** @type {string}  */
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
@@ -27,11 +24,12 @@
     resolve_schema_tokens($frontmatter_as_json_object)
    
     /** @type {WritableStringStore}  */
-    $frontmatter_as_string = get_frontmatter_as_string($frontmatter_as_json_object)
+    //$frontmatter_as_string = get_frontmatter_as_string($frontmatter_as_json_object)
+
+    frontmatter_as_string.set(get_frontmatter_as_string($frontmatter_as_json_object))
 </script>
 
 <div class="form-wrapper">
-
     <div>
         <h1>Frontmatter:  {doc_name}</h1>
         <div>
