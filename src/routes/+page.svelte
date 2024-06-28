@@ -3,7 +3,7 @@
     import { browser } from '$app/environment';
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
-    import { fm_name, fm_current, frontmatter_as_json_object } from '$scripts/state.js';
+    import { fm_current, frontmatter_as_json_object } from '$scripts/state.js';
     import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard } from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
@@ -16,7 +16,7 @@
 
     /** @type {string}  */
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
-    $fm_name = doc_name
+    //$fm_name = doc_name
 
     // Tags list for the doc_name is fetched from the load function in +page.js. 
     export let data

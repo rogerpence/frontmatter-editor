@@ -3,7 +3,7 @@
     import {onMount} from 'svelte'
 
     import {replace_token_value, get_frontmatter_as_string, convert_to_field_name, set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
-    import { fm_name, fm_current, frontmatter_as_json_object } from '$scripts/state.js';
+    import { fm_current, frontmatter_as_json_object } from '$scripts/state.js';
 
     export let label
     export let value
