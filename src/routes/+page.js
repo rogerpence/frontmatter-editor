@@ -3,6 +3,7 @@
 import { tags_list } from '$data/tag_object';
 
 export const load = async ({ url, fetch }) => {
+	/** @type {string[]} */
 	let tags;
 
 	const doc_name = url.searchParams.get('docname') || 'rp-blog';

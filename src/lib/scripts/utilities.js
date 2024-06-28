@@ -89,6 +89,13 @@ export function replace_token_value(json, key, value) {
 	}
 }
 
+/**
+ * Resolve placeholder tokens in the frontmatter json object.
+ * For example, replace *Today with the current date.
+ *
+ * @param {any} json
+ * @returns {void}
+ */
 export function resolve_schema_tokens(json) {
 	for (const f of json) {
 		if (f.type == 'text') {

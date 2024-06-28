@@ -17,11 +17,12 @@
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
 
     // Tags list for the doc_name is fetched from the load function in +page.js. 
+    /** @type {{tags:string[]}} */
     export let data
     const {tags} = data
 
     /*
-     * Frontmatter schema is fetched from the frontmatter.json file in the root of the project.
+     * Frontmatter schema is fetched from the object defined in frontmatter-json.js. 
      */
     $frontmatter_as_json_object = get_frontmatter_as_json(doc_name)
 
