@@ -77,11 +77,28 @@ export function get_frontmatter_as_string(fm_json) {
 	return fields.join('\n').trimEnd();
 }
 
+/**
+ * Set the 'data_value' attribute of an element.
+ *
+ * @param {string} id
+ * @param {any} value
+ *
+ */
+
 export function set_data_value_attr(id, value) {
 	const element = document.querySelector(`#${id}`);
 	element.setAttribute('data_value', value);
 }
 
+/**
+ * Replace a token 'value' property in the frontmatter json object.
+ * The incoming json doc is passed by reference and modified in place.
+ *
+ * @param {any} json
+ * @param {string} key
+ * @param {string} value
+ * @returns {void} - The json object is modified in place.
+ */
 export function replace_token_value(json, key, value) {
 	for (const f of json) {
 		if (f.label_text == key) {
@@ -99,9 +116,9 @@ export function replace_token_value(json, key, value) {
  */
 export function resolve_schema_tokens(json) {
 	for (const f of json) {
-		if (f.type == 'text') {
-			//f.value = `${f.value}`
-		} else if (f.value == '*Today') {
+		if (f.value == '*Today') {
+			// The date value is set to the current date and time in the format yyyy-mm-ddThh:mm
+			// to match the datetime-local input type.
 			f.value = new Date().toISOString().slice(0, 16);
 		}
 	}
