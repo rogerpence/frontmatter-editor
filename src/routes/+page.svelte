@@ -12,11 +12,9 @@
     import DateTag from '$components/DateTag.svelte';
     import BooleanTag from '$components/BooleanTag.svelte';
 	import SelectSingleTag from '$components/SelectSingleTag.svelte';
-    // import DateTime from '$components/DateTime.svelte';
 
     /** @type {string}  */
     const doc_name = $page.url.searchParams.get('docname') || 'rp-blog'
-    //$fm_name = doc_name
 
     // Tags list for the doc_name is fetched from the load function in +page.js. 
     export let data
