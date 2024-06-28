@@ -3,7 +3,7 @@
 
     import {onMount} from 'svelte'
 
-    import {normalize, replace_token_value, get_initial_frontmatter,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import {convert_to_field_name, replace_token_value, get_frontmatter_as_string,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
     import { fm_name, fm_current, fm_json } from '$scripts/state.js';
     import {tags_list} from "$data/tag_object";
 
@@ -14,9 +14,9 @@
     // add error checking if the value is not in the correct format.
     const tags = value.split('|')
     replace_token_value($fm_json, label, tags[0])
-    $fm_current = get_initial_frontmatter($fm_json)           
+    $fm_current = get_frontmatter_as_string($fm_json)           
 
-    const id = normalize(label)
+    const id = convert_to_field_name(label)
     const show_values_id = `${id}_list`
    
     function show_values(e) 
@@ -26,15 +26,15 @@
         set_data_value_attr(id, selected_value)
 
         replace_token_value($fm_json, label, selected_value)
-        $fm_current = get_initial_frontmatter($fm_json)                
+        $fm_current = get_frontmatter_as_string($fm_json)                
     }
 </script>                
 
 <div class="form-field">
-<label for={normalize(label)}>{label}</label>
+<label for={convert_to_field_name(label)}>{label}</label>
     <select data-is-field
-        name={normalize(label)} 
-        id={normalize(label)} 
+        name={convert_to_field_name(label)} 
+        id={convert_to_field_name(label)} 
         data_value
         on:change={show_values}       
         size="1">        

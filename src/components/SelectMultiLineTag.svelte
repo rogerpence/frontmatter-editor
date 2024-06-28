@@ -1,14 +1,14 @@
 <script>
     // @ts-nocheck 
 
-    import {normalize, replace_token_value, get_initial_frontmatter,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
+    import {convert_to_field_name, replace_token_value, get_frontmatter_as_string,  set_data_value_attr, copy_to_clipboard} from "$scripts/utilities.js"
     import { fm_current, fm_json } from '$scripts/state.js';
 
     export let label    
     export let tags
     export let show_info
 
-    const id = normalize(label)
+    const id = convert_to_field_name(label)
     const show_values_id = `${id}_list`
     const NO_TAGS_SELECTED = 'No tags selected'
 
@@ -34,16 +34,16 @@
         }            
 
         replace_token_value($fm_json, label, frontmatter_tags_list)
-        $fm_current = get_initial_frontmatter($fm_json)
+        $fm_current = get_frontmatter_as_string($fm_json)
     }
 
 </script>                
 
 <div class="form-field">
-<label for={normalize(label)}>{label}</label>
+<label for={convert_to_field_name(label)}>{label}</label>
     <select data-is-field
-        name={normalize(label)} 
-        id={normalize(label)} 
+        name={convert_to_field_name(label)} 
+        id={convert_to_field_name(label)} 
         data_value
         multiple size="5">        
         {#each tags as tag}

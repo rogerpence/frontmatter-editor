@@ -8,6 +8,6 @@ export const fm_name = writable('');
 export const fm_json = writable('');
 
 /**
- * @type {string} - The current frontmat as a string.
+ * @type {string} - The current frontmatter as a string.
  */
 export const fm_current = writable('');

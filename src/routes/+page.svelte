@@ -4,7 +4,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
     import { fm_name, fm_current, fm_json } from '$scripts/state.js';
-    import {assign_defaults_to_fm, get_frontmatter_json, get_initial_frontmatter, copy_to_clipboard, copy_to_clipboard_sync} from "$scripts/utilities"
+    import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard } from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
     import TextAreaTag  from "$components/TextAreaTag.svelte"
@@ -25,7 +25,7 @@
     /*
      * Frontmatter schema is fetched from the frontmatter.json file in the root of the project.
      */
-    $fm_json = get_frontmatter_json(doc_name)
+    $fm_json = get_frontmatter_as_json(doc_name)
     for (const f of $fm_json) {
         if (f.type == 'text') {
             //f.value = `${f.value}`
@@ -39,7 +39,7 @@
      * Assign initial frontmatter values to frontmatter result.
      * @type {string}
      */
-    $fm_current = get_initial_frontmatter($fm_json)
+    $fm_current = get_frontmatter_as_string($fm_json)
 </script>
 
 <div class="form-wrapper">
