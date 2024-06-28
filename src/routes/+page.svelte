@@ -4,7 +4,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores'
     import { frontmatter_as_string, frontmatter_as_json_object } from '$scripts/state.js';
-    import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard } from "$scripts/utilities"
+    import { get_frontmatter_as_json, get_frontmatter_as_string, copy_to_clipboard, resolve_schema_tokens } from "$scripts/utilities"
 
     import TextTag from "$components/TextTag.svelte"
     import TextAreaTag  from "$components/TextAreaTag.svelte"
@@ -24,15 +24,9 @@
      * Frontmatter schema is fetched from the frontmatter.json file in the root of the project.
      */
     $frontmatter_as_json_object = get_frontmatter_as_json(doc_name)
-    for (const f of $frontmatter_as_json_object) {
-        if (f.type == 'text') {
-            //f.value = `${f.value}`
-        }
-        else if  (f.value == '*Today') {
-            f.value = new Date().toISOString().slice(0, 16)
-        }        
-    }
-    
+
+    resolve_schema_tokens($frontmatter_as_json_object)
+   
     /**
      * Assign initial frontmatter values to frontmatter result.
      * @type {string}

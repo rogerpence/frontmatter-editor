@@ -52,7 +52,7 @@ export function get_frontmatter_as_json(frontmatter_key) {
 /**
  *
  *
- * @param {Any[]} fm_json
+ * @param {any[]} fm_json
  * @returns {string} Frontmatter string
  */
 export function get_frontmatter_as_string(fm_json) {
@@ -83,9 +83,18 @@ export function set_data_value_attr(id, value) {
 
 export function replace_token_value(json, key, value) {
 	for (const f of json) {
-		//console.log(f);
 		if (f.label_text == key) {
 			f.value = value;
+		}
+	}
+}
+
+export function resolve_schema_tokens(json) {
+	for (const f of json) {
+		if (f.type == 'text') {
+			//f.value = `${f.value}`
+		} else if (f.value == '*Today') {
+			f.value = new Date().toISOString().slice(0, 16);
 		}
 	}
 }
