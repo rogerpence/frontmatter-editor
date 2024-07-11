@@ -9,7 +9,7 @@ import { frontmatter_json } from '$data/frontmatter-json.js';
  * @param {datetime} date
  * @returns {string} - A formatted yyyy-dd-mm date string.
  */
-export function format_date(date) {
+export function date_as_iso_date_only(date) {
 	return new Date(date).toLocaleDateString('en-CA');
 }
 
@@ -82,9 +82,8 @@ export function get_frontmatter_as_string(fm_json) {
  *
  * @param {string} id
  * @param {any} value
- *
+ * @returns {}
  */
-
 export function set_data_value_attr(id, value) {
 	const element = document.querySelector(`#${id}`);
 	element.setAttribute('data_value', value);
@@ -97,7 +96,7 @@ export function set_data_value_attr(id, value) {
  * @param {any} json
  * @param {string} key
  * @param {string} value
- * @returns {void} - The json object is modified in place.
+ * @returns {void} - The json object is modified by reference.
  */
 export function replace_token_value(json, key, value) {
 	for (const f of json) {
@@ -117,9 +116,9 @@ export function replace_token_value(json, key, value) {
 export function resolve_schema_tokens(json) {
 	for (const f of json) {
 		if (f.value == '*Today') {
-			// The date value is set to the current date and time in the format yyyy-mm-ddThh:mm
+			// The date value is set to the current date and time in the format yyyy-mm-ddThh:mm:
 			// to match the datetime-local input type.
-			f.value = new Date().toISOString().slice(0, 16);
+			f.value = new Date().toISOString().slice(0, 19);
 		}
 	}
 }
