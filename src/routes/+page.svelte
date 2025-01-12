@@ -10,6 +10,15 @@
 	import TextAreaTag from '$components/TextAreaTag.svelte';
 	import TextTag from '$components/TextTag.svelte';
 
+	let newTag = '';
+	let tagsSelect;
+
+	function addNewTag() {
+		if (newTag == '') return
+		tagsSelect?.addTagsToSelect(newTag);
+		newTag = '';
+	}
+
 	/** @type {string}  */
 	const doc_name = $page.url.searchParams.get('docname') || 'rp-blog';
 
@@ -61,7 +70,9 @@
 				{/if}
 
 				{#if field.type == 'list' && field.multiline}
-					<SelectMultiLineTag label={field.label_text} show_info={field.show_info} {tags} />
+					<SelectMultiLineTag label={field.label_text} 
+							 bind:this={tagsSelect}
+		 					 show_info={field.show_info} {tags} />
 				{/if}
 
 				{#if field.type == 'singleselect'}
@@ -83,6 +94,11 @@
 	</div>
 
 	<div class="frontmatter-preview">
+		<div class="add-tag">
+			<input type="text" placeholder="Add tag" bind:value={newTag}>
+			<button on:click={addNewTag}>Add</button>
+		</div>
+
 		<div>
 			<button on:click={copy_to_clipboard($frontmatter_as_string)}>Copy fontmatter to clipboard</button>
 		</div>

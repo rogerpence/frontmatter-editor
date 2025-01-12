@@ -164,3 +164,19 @@ textarea {
     border-radius: 5px;
     width: fit-content;
   }
+
+  .add-tag {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    
+    margin-block-start: 4rem;
+    margin-block-end: 2rem;
+
+    & input {
+        height: 1rem; 
+        padding-block: .8rem;
+    }
+
+  }
+

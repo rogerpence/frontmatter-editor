@@ -6,14 +6,6 @@ export const frontmatter_json = {
 			{
 				type: 'text',
 				multiline: false,
-				label_text: 'Layout',
-				value: '$layouts/SingleBlogPost.astro',
-				caption: '',
-				show_info: false
-			},
-			{
-				type: 'text',
-				multiline: false,
 				label_text: 'Title',
 				value: '',
 				caption: '50-60 characters',
@@ -56,6 +48,14 @@ export const frontmatter_json = {
 				multiline: false,
 				label_text: 'Date published',
 				value: '',
+				caption: '',
+				show_info: false
+			},
+			{
+				type: 'boolean',
+				multiline: false,
+				label_text: 'Draft',
+				value: false,
 				caption: '',
 				show_info: false
 			},

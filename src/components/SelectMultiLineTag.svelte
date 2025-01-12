@@ -12,6 +12,12 @@
     const show_values_id = `${id}_list`
     const NO_TAGS_SELECTED = 'No tags selected'
 
+    export function addTagsToSelect(newTag) {
+        tags.push({name: newTag, count: 0})
+        tags = tags.sort((a, b) => a.name.localeCompare(b.name))
+        console.log(tags)
+    }
+
     let tags_selected_list = NO_TAGS_SELECTED
 
     function get_frontmatter_tag_list(tags_array) {
@@ -36,6 +42,7 @@
         replace_token_value($frontmatter_as_json_object, label, frontmatter_tags_list)
         $frontmatter_as_string = get_frontmatter_as_string($frontmatter_as_json_object)
     }
+
 
 </script>                
 
