@@ -24,7 +24,8 @@
 
 	/** @type {{tags:string[]}} */
 	export let data;
-	const { tags } = data; // The tags list for the doc_name. This array could be empty.
+	console.log(data);
+	const { tags, message } = data; // The tags list for the doc_name. This array could be empty.
 
 	/** @type {WritableObjectStore} */
 	$frontmatter_as_json_object = get_frontmatter_as_json(doc_name);
@@ -39,6 +40,9 @@
 
 <div class="form-wrapper">
 	<div>
+		{#if message.startsWith('ERROR')}
+			<div style="color: red;">{message}</div>
+		{/if}
 		<h1>Frontmatter: {doc_name}</h1>
 		<div>
 			<a data-sveltekit-reload href="/?docname=rp-blog">rp blog</a>
