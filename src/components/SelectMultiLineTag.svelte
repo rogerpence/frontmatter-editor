@@ -15,7 +15,6 @@
     export function addTagsToSelect(newTag) {
         tags.push({name: newTag, count: 0})
         tags = tags.sort((a, b) => a.name.localeCompare(b.name))
-        console.log(tags)
     }
 
     let tags_selected_list = NO_TAGS_SELECTED
